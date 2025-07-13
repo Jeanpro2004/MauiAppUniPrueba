@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RodriguezCalvaRualesMAUIUniWay.Views.ProfilePage"
+             BackgroundColor="White">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20" BackgroundColor="White">
+
+            <!-- Encabezado -->
+            <StackLayout HorizontalOptions="Center" Margin="0,20,0,20">
+                <Image Source="uniway_logo.png" 
+                       HeightRequest="60" 
+                       WidthRequest="60"
+                       Aspect="AspectFit"/>
+                <Label Text="UniWay" 
+                       FontSize="28" 
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       TextColor="#8B0000"/>
+                <Label Text="{Binding Title}" 
+                       FontSize="18" 
+                       HorizontalOptions="Center"
+                       TextColor="#2C3E50"/>
+            </StackLayout>
+
+            <!-- Información del Usuario Actual -->
+            <Frame BackgroundColor="#E8F5E8" CornerRadius="15" Padding="20" HasShadow="True" 
+                   IsVisible="{Binding UsuarioActual, Converter={StaticResource IsNotNullConverter}}">
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="15">
+                    <!-- Avatar -->
+                    <Frame Grid.Column="0" 
+                           BackgroundColor="#27AE60" 
+                           CornerRadius="30" 
+                           WidthRequest="60" 
+                           HeightRequest="60" 
+                           Padding="0"
+                           VerticalOptions="Center">
+                        <Label Text="👤" 
+                               FontSize="30" 
+                               HorizontalOptions="Center" 
+                               VerticalOptions="Center"
+                               TextColor="White"/>
+                    </Frame>
+
+                    <!-- Info Usuario -->
+                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="5">
+                        <Label Text="{Binding UsuarioActual.Nombre}" 
+                               FontSize="18" 
+                               FontAttributes="Bold" 
+                               TextColor="#27AE60"/>
+                        <Label Text="{Binding UsuarioActual.Correo}" 
+                               FontSize="14" 
+                               TextColor="#2C3E50"/>
+                        <Label Text="{Binding UsuarioActual.IdBanner}" 
+                               FontSize="12" 
+                               TextColor="#7F8C8D"/>
+                    </VerticalStackLayout>
+
+                    <!-- Badge Tipo Usuario -->
+                    <Frame Grid.Column="2" 
+                           BackgroundColor="{Binding UsuarioActual.EsConductor, Converter={StaticResource BoolToColorConverter}}" 
+                           CornerRadius="15" 
+                           Padding="10,5"
+                           VerticalOptions="Start">
+                        <Label Text="{Binding UsuarioActual.EsConductor, StringFormat='{0}', Converter={StaticResource BoolToStringConverter}}" 
+                               FontSize="12" 
+                               FontAttributes="Bold"
+                               TextColor="White"/>
+                    </Frame>
+                </Grid>
+            </Frame>
+
+            <!-- Sección de Edición -->
+            <Label Text="Editar Información Personal" 
+                   FontSize="18" 
+                   FontAttributes="Bold" 
+                   TextColor="#2C3E50"
+                   Margin="0,10,0,0"/>
+
+            <!-- Nombre Completo -->
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Nombre Completo" TextColor="#2C3E50" FontSize="14" FontAttributes="Bold"/>
+                <Frame Style="{StaticResource EntryFrameStyle}">
+                    <Entry Text="{Binding Nombre}"
+                           Placeholder="Ingresa tu nombre completo"
+                           PlaceholderColor="#95A5A6"
+                           TextColor="#2C3E50"
+                           BackgroundColor="Transparent"
+                           Margin="15,0"/>
+                </Frame>
+            </VerticalStackLayout>
+
+            <!-- Email Universitario -->
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Email Universitario" TextColor="#2C3E50" FontSize="14" FontAttributes="Bold"/>
+                <Frame Style="{StaticResource EntryFrameStyle}">
+                    <Entry Text="{Binding Email}"
+                           Placeholder="nombre@universidad.edu.ec"
+                           PlaceholderColor="#95A5A6"
+                           TextColor="#2C3E50"
+                           BackgroundColor="Transparent"
+                           Keyboard="Email"
+                           Margin="15,0"/>
+                </Frame>
+            </VerticalStackLayout>
+
+            <!-- Número de Teléfono -->
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Número de Teléfono" TextColor="#2C3E50" FontSize="14" FontAttributes="Bold"/>
+                <StackLayout Orientation="Horizontal" Spacing="5">
+                    <Frame BackgroundColor="#F8F9FA" CornerRadius="10" Padding="0" HasShadow="False" BorderColor="#E0E0E0" WidthRequest="80">
+                        <Label Text="+593" 
+                               TextColor="#2C3E50" 
+                               VerticalOptions="Center" 
+                               HorizontalOptions="Center"
+                               FontSize="16"/>
+                    </Frame>
+                    <Frame Style="{StaticResource EntryFrameStyle}" HorizontalOptions="FillAndExpand">
+                        <Entry Text="{Binding Telefono}"
+                               Placeholder="99 123 4567"
+                               PlaceholderColor="#95A5A6"
+                               TextColor="#2C3E50"
+                               BackgroundColor="Transparent"
+                               Keyboard="Telephone"
+                               Margin="15,0"/>
+                    </Frame>
+                </StackLayout>
+            </VerticalStackLayout>
+
+            <!-- ID Banner -->
+            <VerticalStackLayout Spacing="5">
+                <Label Text="ID Banner" TextColor="#2C3E50" FontSize="14" FontAttributes="Bold"/>
+                <Frame Style="{StaticResource EntryFrameStyle}">
+                    <Entry Text="{Binding IdBanner}"
+                           Placeholder="Ej: B00123456"
+                           PlaceholderColor="#95A5A6"
+                           TextColor="#2C3E50"
+                           BackgroundColor="Transparent"
+                           Margin="15,0"/>
+                </Frame>
+            </VerticalStackLayout>
+
+            <!-- Sección Cambio de Contraseña -->
+            <Label Text="Cambiar Contraseña (Opcional)" 
+                   FontSize="16" 
+                   FontAttributes="Bold" 
+                   TextColor="#2C3E50"
+                   Margin="0,20,0,0"/>
+
+            <!-- Nueva Contraseña -->
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Nueva Contraseña" TextColor="#2C3E50" FontSize="14"/>
+                <Frame Style="{StaticResource EntryFrameStyle}">
+                    <Entry Text="{Binding Password}"
+                           Placeholder="Dejar vacío para mantener actual"
+                           PlaceholderColor="#95A5A6"
+                           TextColor="#2C3E50"
+                           BackgroundColor="Transparent"
+                           IsPassword="True"
+                           Margin="15,0"/>
+                </Frame>
+            </VerticalStackLayout>
+
+            <!-- Confirmar Nueva Contraseña -->
+            <VerticalStackLayout Spacing="5" IsVisible="{Binding Password, Converter={StaticResource IsNotNullOrEmptyConverter}}">
+                <Label Text="Confirmar Nueva Contraseña" TextColor="#2C3E50" FontSize="14"/>
+                <Frame Style="{StaticResource EntryFrameStyle}">
+                    <Entry Text="{Binding ConfirmPassword}"
+                           Placeholder="Repite la nueva contraseña"
+                           PlaceholderColor="#95A5A6"
+                           TextColor="#2C3E50"
+                           BackgroundColor="Transparent"
+                           IsPassword="True"
+                           Margin="15,0"/>
+                </Frame>
+            </VerticalStackLayout>
+
+            <!-- Tipo de Usuario -->
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Tipo de Usuario" TextColor="#2C3E50" FontSize="14" FontAttributes="Bold"/>
+                <Frame BackgroundColor="#F0F8FF" CornerRadius="10" Padding="15">
+                    <StackLayout Orientation="Horizontal" Spacing="30">
+                        <RadioButton Content="🚶 Pasajero" 
+                                    GroupName="UserType" 
+                                    IsChecked="{Binding IsDriver, Converter={StaticResource InvertedBoolConverter}}" 
+                                    TextColor="#2C3E50"/>
+                        <RadioButton Content="🚗 Conductor" 
+                                    GroupName="UserType" 
+                                    IsChecked="{Binding IsDriver}" 
+                                    TextColor="#2C3E50"/>
+                    </StackLayout>
+                </Frame>
+            </VerticalStackLayout>
+
+            <!-- Botones de Acción -->
+            <VerticalStackLayout Spacing="15" Margin="0,30,0,0">
+
+                <!-- Botón Actualizar -->
+                <Button Text="💾 Actualizar Perfil"
+                        Command="{Binding UpdateCommand}"
+                        IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+                        BackgroundColor="#27AE60"
+                        TextColor="White"
+                        CornerRadius="25"
+                        HeightRequest="50"
+                        FontSize="16"
+                        FontAttributes="Bold"/>
+
+                <!-- Botones Secundarios -->
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                    <Button Grid.Column="0"
+                            Text="🚪 Cerrar Sesión"
+                            Command="{Binding LogoutCommand}"
+                            BackgroundColor="#F39C12"
+                            TextColor="White"
+                            CornerRadius="20"
+                            HeightRequest="45"
+                            FontSize="14"/>
+
+                    <Button Grid.Column="1"
+                            Text="📊 Estadísticas"
+                            BackgroundColor="#3498DB"
+                            TextColor="White"
+                            CornerRadius="20"
+                            HeightRequest="45"
+                            FontSize="14"/>
+                </Grid>
+
+                <!-- Zona de Peligro -->
+                <Frame BackgroundColor="#FFEBEE" CornerRadius="10" Padding="15" Margin="0,20,0,0">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="⚠️ Zona de Peligro" 
+                               FontSize="16" 
+                               FontAttributes="Bold" 
+                               TextColor="#E74C3C"/>
+                        <Label Text="Esta acción no se puede deshacer" 
+                               FontSize="12" 
+                               TextColor="#7F8C8D"/>
+                        <Button Text="🗑️ Eliminar Cuenta"
+                                Command="{Binding DeleteCommand}"
+                                IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+                                BackgroundColor="#E74C3C"
+                                TextColor="White"
+                                CornerRadius="20"
+                                HeightRequest="40"
+                                FontSize="14"/>
+                    </VerticalStackLayout>
+                </Frame>
+            </VerticalStackLayout>
+
+            <!-- Indicador de carga -->
+            <ActivityIndicator IsVisible="{Binding IsBusy}" 
+                             IsRunning="{Binding IsBusy}"
+                             Color="#8B0000"
+                             VerticalOptions="Center"
+                             Margin="0,20,0,0"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

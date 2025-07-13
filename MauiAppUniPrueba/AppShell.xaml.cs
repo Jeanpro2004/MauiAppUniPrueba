@@ -1,4 +1,4 @@
-﻿namespace MauiAppUniPrueba
+﻿namespace RodriguezCalvaRualesMAUIUniWay
 {
     public partial class AppShell : Shell
     {
